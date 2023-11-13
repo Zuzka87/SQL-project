@@ -61,5 +61,6 @@ tc.category_code,
 100*(tc.avg_price - tc2.avg_price)/tc.avg_price AS percent
 FROM t_zuzana_salamon_SQL_primary_price tc
 JOIN t_zuzana_salamon_SQL_primary_price tc2 ON tc2.category_code = tc.category_code AND tc2.year_price = tc.year_price -1
+JOIN czechia_price_category cpc ON cpc.code = tc.category_code
 WHERE tc.avg_price > tc2.avg_price
 ORDER BY (tc.avg_price - tc2.avg_price)/tc.avg_price;
