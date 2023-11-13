@@ -55,5 +55,11 @@ FROM t_zuzana_salamon_SQL_primary_price tc
 JOIN t_zuzana_salamon_SQL_primary_payroll tp ON tp.payroll_year = tc.year_price 
 WHERE tc.category_code IN(111301,114201) AND tc.year_price IN(2006,2018);
 
-SELECT *
-FROM t_zuz
+SELECT 
+tc.year_price,
+tc.category_code,
+100*(tc.avg_price - tc2.avg_price)/tc.avg_price AS percent
+FROM t_zuzana_salamon_SQL_primary_price tc
+JOIN t_zuzana_salamon_SQL_primary_price tc2 ON tc2.category_code = tc.category_code AND tc2.year_price = tc.year_price -1
+WHERE tc.avg_price > tc2.avg_price
+ORDER BY (tc.avg_price - tc2.avg_price)/tc.avg_price;
