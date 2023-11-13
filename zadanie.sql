@@ -58,6 +58,7 @@ WHERE tc.category_code IN(111301,114201) AND tc.year_price IN(2006,2018);
 SELECT 
 tc.year_price,
 tc.category_code,
+cpc.name AS name_product,
 100*(tc.avg_price - tc2.avg_price)/tc.avg_price AS percent
 FROM t_zuzana_salamon_SQL_primary_price tc
 JOIN t_zuzana_salamon_SQL_primary_price tc2 ON tc2.category_code = tc.category_code AND tc2.year_price = tc.year_price -1
