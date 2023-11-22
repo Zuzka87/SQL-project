@@ -91,7 +91,7 @@ tpc.avg_price - tpc2.avg_price AS diff_avg_price,
 FROM t_zuzana_salamon_SQL_primary_price tpc
 	LEFT JOIN t_zuzana_salamon_SQL_primary_price tpc2 ON tpc2.category_code = tpc.category_code 
 		AND tpc2.year_price = tpc.year_price -1;
-	
+
 SELECT 
 tzsp.name_industry,
 tzsp.previous_year,
@@ -110,7 +110,7 @@ FROM t_zuzana_salamon_project_SQL_payroll tzsp
 	LEFT JOIN czechia_price_category cpc ON cpc.code = tzspc.category_code
 	LEFT JOIN economies e ON e.`year` = tzsp.payroll_year  AND e.country = 'Czech Republic'; 
 
-CREATE TABLE t_zuzana_salamon_primary_final
+CREATE TABLE t_zuzana_salamon_project_SQL_primary_final
 SELECT 
 tzsp.name_industry,
 tzsp.previous_year,
@@ -128,3 +128,15 @@ FROM t_zuzana_salamon_project_SQL_payroll tzsp
 	LEFT JOIN t_zuzana_salamon_project_SQL_price tzspc ON tzspc.year_price = tzsp.payroll_year 
 	LEFT JOIN czechia_price_category cpc ON cpc.code = tzspc.category_code
 	LEFT JOIN economies e ON e.`year` = tzsp.payroll_year  AND e.country = 'Czech Republic'; 
+	
+SELECT *
+FROM t_zuzana_salamon_project_SQL_primary_final;
+
+
+
+
+
+
+
+
+
