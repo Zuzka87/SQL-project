@@ -1,4 +1,4 @@
-Vypracovanie projektu SQL
+**Vypracovanie projektu SQL**
 
   Cieľom tohto projektu bolo pripraviť robustné dátové podklady a odpovedať na vopred stanovené výskumné otázky. K vypracovaniu projektu som mala dostupné dátové sady z “Portálu otevřených dat ČR” a tabuľky s dátami.
 
@@ -50,4 +50,3 @@ Pri poslednej otázke som hľadala súvis ako vplýva výška HDP na ceny potrav
 Významnú koreláciu som nenašla. Mohli by konštatovať, že najvyšší nárast HDP v nami dostupných dát, bol v roku 2006 (6,338) a na hrubý odhad má výška vplyvom klesajúceho HDP, taktiež klesajúcu tendenciu.
 
 Koreláciu medzi výškou HDP a cien produktov som nenašla.
-![image](https://github.com/Zuzka87/SQL-project/assets/5064372/142f0666-f199-45cf-92e3-d25cd333bf04)
