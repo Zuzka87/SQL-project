@@ -1,4 +1,4 @@
-**Vypracovanie projektu SQL**
+Vypracovanie projektu SQL
 
   Cieľom tohto projektu bolo pripraviť robustné dátové podklady a odpovedať na vopred stanovené výskumné otázky. K vypracovaniu projektu som mala dostupné dátové sady z “Portálu otevřených dat ČR” a tabuľky s dátami.
 
