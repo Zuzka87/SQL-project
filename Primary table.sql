@@ -1,7 +1,6 @@
-
 SELECT *
 FROM czechia_payroll cp
-ORDER BY payroll_year ;
+ORDER BY payroll_year DESC ;
 
 SELECT 
 *
@@ -17,26 +16,26 @@ WHERE industry_branch_code IS NOT NULL
 	AND cp.unit_code = '200'
 ORDER BY payroll_year DESC;
 
-CREATE TABLE t_zuzana_salamon_SQL_primary_payroll
+CREATE OR REPLACE VIEW v_zuzana_salamon_SQL_primary_payroll AS
 SELECT 
 AVG(value) AS total_value,
 cp.industry_branch_code,							
 cpib.name AS name_industry,
 cp.payroll_year 
 FROM czechia_payroll cp
-	LEFT JOIN czechia_payroll_industry_branch cpib ON cpib.code = cp.industry_branch_code 
+LEFT JOIN czechia_payroll_industry_branch cpib ON cpib.code = cp.industry_branch_code 
 WHERE cp.value_type_code = '5958' 
 	AND cp.calculation_code = '200'
 	AND cp.unit_code = '200'
 GROUP BY industry_branch_code, payroll_year;
 
 SELECT *
-FROM t_zuzana_salamon_SQL_primary_payroll tp ;
+FROM v_zuzana_salamon_SQL_primary_payroll tp ;
 
 SELECT *
 FROM czechia_price cp;
 
-CREATE TABLE t_zuzana_salamon_SQL_primary_price
+CREATE OR REPLACE VIEW v_zuzana_salamon_SQL_primary_price AS
 SELECT 
 AVG(cp.value) AS avg_price,
 year(date_from) AS year_price,
@@ -45,9 +44,10 @@ FROM czechia_price cp
 GROUP BY category_code, YEAR(date_from);
 
 SELECT *
-FROM t_zuzana_salamon_SQL_primary_price tc;
+FROM v_zuzana_salamon_SQL_primary_price tc
+ORDER BY year_price DESC ;
 
-CREATE TABLE t_zuzana_salamon_project_SQL_payroll
+CREATE OR REPLACE VIEW v_zuzana_salamon_project_SQL_payroll AS 
 SELECT 
 cpib.name AS name_industry,
 tp.total_value AS total_value_payroll,
@@ -56,17 +56,18 @@ tp2.total_value AS previous_year,
 tp.industry_branch_code,
 tp.total_value - tp2.total_value AS diff_value,
 100*(tp.total_value - tp2.total_value)/tp.total_value AS percent_payroll
-FROM t_zuzana_salamon_SQL_primary_payroll tp
-	LEFT JOIN t_zuzana_salamon_SQL_primary_payroll tp2 ON (tp2.industry_branch_code = tp.industry_branch_code 
-		OR (tp2.industry_branch_code IS NULL AND tp.industry_branch_code IS NULL))
+FROM v_zuzana_salamon_SQL_primary_payroll tp
+LEFT JOIN v_zuzana_salamon_SQL_primary_payroll tp2 ON (tp2.industry_branch_code = tp.industry_branch_code 
+	OR (tp2.industry_branch_code IS NULL 
+		AND tp.industry_branch_code IS NULL))
 		AND tp2.payroll_year = tp.payroll_year -1
-	LEFT JOIN czechia_payroll_industry_branch cpib ON cpib.code = tp.industry_branch_code;
+LEFT JOIN czechia_payroll_industry_branch cpib ON cpib.code = tp.industry_branch_code;
 
 SELECT 
 *
-FROM t_zuzana_salamon_project_SQL_payroll tzspsp ;
+FROM v_zuzana_salamon_project_SQL_payroll tzspsp ;
 
-CREATE TABLE t_zuzana_salamon_project_SQL_price
+CREATE OR REPLACE VIEW v_zuzana_salamon_project_SQL_price AS 
 SELECT 
 tpc.category_code,
 cpc.name AS product_name,
@@ -75,15 +76,15 @@ tpc.year_price,
 tpc2.avg_price AS previous_avg_price,
 tpc.avg_price - tpc2.avg_price AS diff_avg_price,
 100*(tpc.avg_price-tpc2.avg_price)/tpc.avg_price AS percent_avg_price
-FROM t_zuzana_salamon_SQL_primary_price tpc
-	LEFT JOIN t_zuzana_salamon_SQL_primary_price tpc2 ON tpc2.category_code = tpc.category_code 
-		AND tpc2.year_price = tpc.year_price -1
-	LEFT JOIN czechia_price_category cpc ON cpc.code = tpc.category_code;
+FROM v_zuzana_salamon_SQL_primary_price tpc
+LEFT JOIN v_zuzana_salamon_SQL_primary_price tpc2 ON tpc2.category_code = tpc.category_code 
+	AND tpc2.year_price = tpc.year_price -1
+LEFT JOIN czechia_price_category cpc ON cpc.code = tpc.category_code;
 
 SELECT *
-FROM t_zuzana_salamon_project_SQL_price tzspsp ;
+FROM v_zuzana_salamon_project_SQL_price tzspsp ;
 
-CREATE TABLE t_zuzana_salamon_project_SQL_GDP
+CREATE OR REPLACE VIEW v_zuzana_salamon_project_SQL_GDP AS 
 SELECT 
 e.`year`,
 e.GDP,
@@ -91,8 +92,10 @@ e2.GDP AS previous,
 e2.GDP - e.GDP AS diff_GDP,
 100*(e.GDP - e2.GDP)/e.GDP AS percent_diff_GDP
 FROM economies e 
-	LEFT JOIN economies e2 ON e2.`year` = e.`year` -1 AND e2.country = e.country 
+LEFT JOIN economies e2 ON e2.`year` = e.`year` -1 
+	AND e2.country = e.country 
 WHERE e.country = 'Czech Republic';
+
 
 CREATE TABLE t_zuzana_salamon_project_SQL_primary_final
 SELECT 
@@ -110,11 +113,13 @@ tzspc.year_price,
 tgdp.percent_diff_GDP,
 tgdp2.percent_diff_GDP AS previous_percent_diff_GDP,
 ROUND(tzsp.total_value_payroll/tzspc.avg_price,2) AS units_for_annual_salary
-FROM t_zuzana_salamon_project_SQL_payroll tzsp
-	LEFT JOIN t_zuzana_salamon_project_SQL_price tzspc ON tzspc.year_price = tzsp.payroll_year 
-	LEFT JOIN czechia_price_category cpc ON cpc.code = tzspc.category_code
-	LEFT JOIN t_zuzana_salamon_project_SQL_GDP tgdp ON tgdp.`year` = tzspc.year_price 
-	LEFT JOIN t_zuzana_salamon_project_SQL_GDP tgdp2 ON tgdp2.`year` = tzspc.year_price -1;
+FROM v_zuzana_salamon_project_SQL_payroll tzsp
+LEFT JOIN v_zuzana_salamon_project_SQL_price tzspc ON tzspc.year_price = tzsp.payroll_year 
+LEFT JOIN czechia_price_category cpc ON cpc.code = tzspc.category_code
+LEFT JOIN v_zuzana_salamon_project_SQL_GDP tgdp ON tgdp.`year` = tzspc.year_price 
+LEFT JOIN v_zuzana_salamon_project_SQL_GDP tgdp2 ON tgdp2.`year` = tzspc.year_price -1
+WHERE tzspc.year_price BETWEEN 2006 AND 2018;
 		
 SELECT *
 FROM t_zuzana_salamon_project_SQL_primary_final;
+
