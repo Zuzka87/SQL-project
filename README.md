@@ -6,10 +6,10 @@ Postup pri tvorbe primárnej tabuľky
 
   Najnáročnejšia bola tvorba primárnej tabuľky, kde bolo potrebné si vopred definovať, čo konkrétne v tejto tabuľke budem potrebovať, aby som vedela vytvoriť selecty a odpovedať na výskumné otázky. Vytvorila som si pomocné tabuľky, ktoré som potom spojila do jednej veľkej primárnej tabuľky.
   Zo základnej tabuľky „Czechia_payroll“ som si vybrala potrebné stĺpce a pripojila číselník pre lepšiu orientáciu v tabuľke pri hodnotení výsledkov. Prvý plán bol „value“ spočítať pomocou SUM agregátnej funkcie ale pri kontrole dát som prišla na to, že v poslednom roku chýbajú údaje k 2 kvartálom, tak som sa vybrala cestou priemeru (AVG). Ešte som si overila, že v žiadnom roku nie je v kvartály NULL. 
-Ako ďalší krok som si upravila pomocou agregátnych funkcii aj tabuľku „Czechia_price“. Urobila som priemer cien a upravila roky, aby som pomocou rokov mohla tabuľku prepojiť.
+Ako ďalší krok som si upravila pomocou agregátnych funkcií aj tabuľku „Czechia_price“. Urobila som priemer cien a upravila roky, aby som pomocou rokov mohla tabuľku prepojiť.
   Vrátila som sa k úprave mnou vytvorenej tabuľky „t_zuzana_salamon_SQL_primary_payroll“ a pridala som stĺpec s hodnotou predošlého roku, stĺpec s rozdielom a stĺpec s rozdielom vyjadrený v percentách. Pre kontrolu správnosti som si overila počet riadkov s predošlou tabuľkou.
 Podobne som si upravila aj tabuľku „Czechia_price“ a tabuľku s HDP („economies“), kde som si podmienkou vyselektovala len Českú republiku.
-	V poslednom kroku som spojila upravené pomocou agregátnych funkcií tabuľky price, payroll a GDP a zaokrúhlila stĺpec, kde som vypočítala množstvo potravín. 
+	V poslednom kroku som spojila upravené pomocou agregátnych funkcií tabuľky price, payroll a GDP a zaokrúhlila stĺpec, kde som vypočítala množstvo potravín. Zároveň som vyfiltrovala data na základe spoločného obdobia /rokov/, ktoré môžeme porovnať.
 
 Postup pri tvorbe sekundárnej tabuľky
 
