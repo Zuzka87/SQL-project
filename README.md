@@ -49,4 +49,3 @@ Pri poslednej otázke som hľadala súvis ako vplýva výška HDP na ceny potrav
 Významnú koreláciu som nenašla. Mohli by konštatovať, že najvyšší nárast HDP v nami dostupných dát, bol v roku 2006 (6,338) a na hrubý odhad má výška vplyvom klesajúceho HDP, taktiež klesajúcu tendenciu.
 
 Koreláciu medzi výškou HDP a cien produktov som nenašla.
-![image](https://github.com/Zuzka87/SQL-project/assets/5064372/3ad33ed5-c6cb-4d0c-9306-f7a8795af94b)
