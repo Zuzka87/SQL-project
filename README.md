@@ -1,19 +1,19 @@
 Vypracovanie projektu SQL
 
-  Cieľom tohto projektu bolo pripraviť robustné dátové podklady a odpovedať na vopred stanovené výskumné otázky. K vypracovaniu projektu som mala dostupné dátové sady z “Portálu otevřených dat ČR” a tabuľky s dátami.
+Cieľom tohto projektu bolo pripraviť robustné dátové podklady a odpovedať na vopred stanovené výskumné otázky. K vypracovaniu projektu som mala dostupné dátové sady z “Portálu otevřených dat ČR” a tabuľky s dátami.
 
 Postup pri tvorbe primárnej tabuľky
 
-  Najnáročnejšia bola tvorba primárnej tabuľky, kde bolo potrebné si vopred definovať, čo konkrétne v tejto tabuľke budem potrebovať, aby som vedela vytvoriť selecty a odpovedať na výskumné otázky. Vytvorila som si pomocné tabuľky, ktoré som potom spojila do jednej veľkej primárnej tabuľky.
-  Zo základnej tabuľky „Czechia_payroll“ som si vybrala potrebné stĺpce a pripojila číselník pre lepšiu orientáciu v tabuľke pri hodnotení výsledkov. Prvý plán bol „value“ spočítať pomocou SUM agregátnej funkcie ale pri kontrole dát som prišla na to, že v poslednom roku chýbajú údaje k 2 kvartálom, tak som sa vybrala cestou priemeru (AVG). Ešte som si overila, že v žiadnom roku nie je v kvartály NULL. 
-Ako ďalší krok som si upravila pomocou agregátnych funkcií aj tabuľku „Czechia_price“. Urobila som priemer cien a upravila roky, aby som pomocou rokov mohla tabuľku prepojiť.
-  Vrátila som sa k úprave mnou vytvorenej tabuľky „t_zuzana_salamon_SQL_primary_payroll“ a pridala som stĺpec s hodnotou predošlého roku, stĺpec s rozdielom a stĺpec s rozdielom vyjadrený v percentách. Pre kontrolu správnosti som si overila počet riadkov s predošlou tabuľkou.
+Najnáročnejšia bola tvorba primárnej tabuľky, kde bolo potrebné si vopred definovať, čo konkrétne v tejto tabuľke budem potrebovať, aby som vedela vytvoriť selecty a odpovedať na výskumné otázky. Vytvorila som si pomocné tabuľky, ktoré som potom spojila do jednej veľkej primárnej tabuľky.
+Zo základnej tabuľky „Czechia_payroll“ som si vybrala potrebné stĺpce a pripojila číselník pre lepšiu orientáciu v tabuľke pri hodnotení výsledkov. Prvý plán bol „value“ spočítať pomocou SUM agregátnej funkcie ale pri kontrole dát som prišla na to, že v poslednom roku chýbajú údaje k 2 kvartálom, tak som sa vybrala cestou priemeru (AVG). Ešte som si overila, že v žiadnom roku nie je v kvartály NULL. 
+Ako ďalší krok som si upravila pomocou agregátnych funkcii aj tabuľku „Czechia_price“. Urobila som priemer cien a upravila roky, aby som pomocou rokov mohla tabuľku prepojiť.
+Vrátila som sa k úprave mnou vytvorenej tabuľky „t_zuzana_salamon_SQL_primary_payroll“ a pridala som stĺpec s hodnotou predošlého roku, stĺpec s rozdielom a stĺpec s rozdielom vyjadrený v percentách. Pre kontrolu správnosti som si overila počet riadkov s predošlou tabuľkou. Nakoniec som si skontrolovala obdobie (roky), ktoré môžeme sledovať a porovnávať, tj. Spoločné roky pre „Czechia_payroll“ a „Czechia_price“.
 Podobne som si upravila aj tabuľku „Czechia_price“ a tabuľku s HDP („economies“), kde som si podmienkou vyselektovala len Českú republiku.
-	V poslednom kroku som spojila upravené pomocou agregátnych funkcií tabuľky price, payroll a GDP a zaokrúhlila stĺpec, kde som vypočítala množstvo potravín. Zároveň som vyfiltrovala data na základe spoločného obdobia /rokov/, ktoré môžeme porovnať.
+	V poslednom kroku som spojila upravené pomocou agregátnych funkcií tabuľky price, payroll a GDP a zaokrúhlila stĺpec, kde som vypočítala množstvo potravín. 
 
 Postup pri tvorbe sekundárnej tabuľky
 
-  Pri tvorbe sekundárnej tabuľky som si overila s akými rokmi budeme pracovať pomocou funkcií SUM a MAX z primárnej tabuľky. Spojila som dve tabuľky s potrebnými stĺpcami.
+Pri tvorbe sekundárnej tabuľky som si overila s akými rokmi budeme pracovať pomocou funkcií SUM a MAX z primárnej tabuľky. Spojila som dve tabuľky s potrebnými stĺpcami.
 
 Vypracovanie otázok
 
@@ -21,7 +21,7 @@ Otázka č. 1
 
 „Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
 
-  V nami sledovaných rokoch nerastú všetky mzdy. V priebehu rokov v niektorých odvetviach mzdy klesli. Najvyšší pokles mzdy bol v odvetví „Peněžnictví a pojišťovnictví „ roku 2013 a jednalo sa o pokles 9,68 .
+V nami sledovaných rokoch nerastú všetky mzdy. V priebehu rokov v niektorých odvetviach mzdy klesli. Najvyšší pokles mzdy bol v odvetví „Peněžnictví a pojišťovnictví „ roku 2013 a jednalo sa o pokles 9,68 .
 
 Otázka č.2
 
@@ -33,20 +33,20 @@ V roku 2006 sme mohli za ročnú mzdu kúpiť  1 211,64 kilogramov „chleba kon
 Vypracovanie otázky č.3
 
 „Která kategorie potravin zdražuje nejpomaleji (je u ní nejnižší percentuální meziroční nárůst)?“
-
-Najpomalšie zdražil “Rostlinný roztíratelný tuk” a to konkrétne o 0,016.
+V tejto otázke som sa rozhodla porovnať sumu produktov za prvý a posledný rok. Vypočítala som rozdiel ceny medzi sledovaným obdobím a previedla na percentá. Z výsledkov vyplýva, že najpomalšie rástla cien banánov za celé porovnávacie obdobie tj. roky 2006 a 2018. 
 
 Vypracovanie otázky č.4
 
 „Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?“
-Áno, v roku 2008, 2009 a 2018 bol medziročný nárast cien výrazne vyšší ako nárast miezd.
+Porovnávala som percentuálny medziročný nárast cien potravín a miezd. Vypočítala som rozdiel nárastu miezd a potravín. Odpoveď na otázku je, že existujú roky kde bol výrazne vyšší (nad 10 %) nárast cien potravín oproti nárastu potravín.
 
 Vypracovanie otázky č.5
 
 „Má výška HDP vliv na změny ve mzdách a cenách potravin? Neboli, pokud HDP vzroste výrazněji v jednom roce, projeví se to na cenách potravin či mzdách ve stejném nebo násdujícím roce výraznějším růstem?“
 
-Pri poslednej otázke som hľadala súvis ako vplýva výška HDP na ceny potravín a výšku miezd. Porovnávala som samostatne v selectoch najvyššiu zmenu HDP za jeden rok a najvyššiu zmenu HDP za uplynulé roky samostatne so mzdami a cenami potravín.
+Pri poslednej otázke som hľadala súvis ako vplýva výška HDP na ceny potravín a výšku miezd. Porovnávala som najvyššiu zmenu HDP za jeden rok a najvyššiu zmenu HDP za uplynulé roky so mzdami a cenami potravín.
 
 Významnú koreláciu som nenašla. Mohli by konštatovať, že najvyšší nárast HDP v nami dostupných dát, bol v roku 2006 (6,338) a na hrubý odhad má výška vplyvom klesajúceho HDP, taktiež klesajúcu tendenciu.
 
 Koreláciu medzi výškou HDP a cien produktov som nenašla.
+![image](https://github.com/Zuzka87/SQL-project/assets/5064372/3ad33ed5-c6cb-4d0c-9306-f7a8795af94b)
