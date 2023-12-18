@@ -38,7 +38,7 @@ V tejto otázke som sa rozhodla porovnať sumu produktov za prvý a posledný ro
 Vypracovanie otázky č.4
 
 „Existuje rok, ve kterém byl meziroční nárůst cen potravin výrazně vyšší než růst mezd (větší než 10 %)?“
-Porovnávala som percentuálny medziročný nárast cien potravín a miezd. Vypočítala som rozdiel nárastu miezd a potravín. Odpoveď na otázku je, že existujú roky kde bol výrazne vyšší (nad 10 %) nárast cien potravín oproti nárastu potravín.
+Porovnávala som percentuálne rozdiely priemerných cien a miezd za jednotlivé roky. Najvačší rozdiel nastal v roku 2009, kde bol pokles o 11%. Výsoký nárast (nad 10%) sme nezaznamenali v žiadnom roku.
 
 Vypracovanie otázky č.5
 
